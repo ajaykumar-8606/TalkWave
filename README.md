@@ -382,7 +382,7 @@ npm run dev
 
 ## 👨‍💻 Author & Contact
 
-**Ajay Kumar**  
+**Ajay Kumar Yadav**  
 Full-Stack Software Engineer specializing in scalable JavaScript/TypeScript, React, Node.js, and real-time distributed systems.
 
 - 🌐 **Live Demo:** [https://chat-application-p7j6.onrender.com](https://chat-application-p7j6.onrender.com)
