@@ -2,11 +2,11 @@
 
 A modern, responsive, real-time messaging web application built with the **MERN** stack (**MongoDB**, **Express**, **React 19**, **Node.js**) powered by **Socket.io** for instantaneous bi-directional communication.
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live%20Preview-brightgreen?style=for-the-badge&logo=render&logoColor=white)](https://chat-application-p7j6.onrender.com)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/ajaykumar-8606/Chat_application)
+<a href="https://chat-application-p7j6.onrender.com" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Demo-Live%20Preview-brightgreen?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo" /></a>
+<a href="https://github.com/ajaykumar-8606/Chat_application" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github" alt="GitHub Repo" /></a>
 
-> 🚀 **Live Application:** [https://chat-application-p7j6.onrender.com](https://chat-application-p7j6.onrender.com)  
-> ⚡ **Backend API Server:** [https://chat-application-backend-eafa.onrender.com](https://chat-application-backend-eafa.onrender.com)
+> 🚀 **Live Application:** <a href="https://chat-application-p7j6.onrender.com" target="_blank" rel="noopener noreferrer">https://chat-application-p7j6.onrender.com</a>  
+> ⚡ **Backend API Server:** <a href="https://chat-application-backend-eafa.onrender.com" target="_blank" rel="noopener noreferrer">https://chat-application-backend-eafa.onrender.com</a>
 
 ---
 
