@@ -3,10 +3,13 @@ node_modules/
 backend/node_modules/
 frontend/node_modules/
 
-# Environment Variables & Secrets
+# Environment Variables & Secrets (Keep .env strictly private and uncommitted)
 .env
 .env.*
 *.env.local
+!.env.example
+!backend/.env.example
+!frontend/.env.example
 
 # Production Build Output
 frontend/dist/
