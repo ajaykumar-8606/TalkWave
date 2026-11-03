@@ -7,7 +7,7 @@ import ProfileModal from './ProfileModal';
 import {
   IoSearchOutline,
   IoCloseCircle,
-  IoChatbubbleEllipsesOutline,
+  IoChatbubblesOutline,
   IoLogOutOutline,
   IoRefreshOutline,
   IoPersonOutline,
@@ -36,7 +36,10 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  const totalUnread = Object.values(unreadCounts || {}).reduce((acc, count) => acc + count, 0);
+  const totalUnread = Object.values(unreadCounts || {}).reduce(
+    (acc, count) => acc + count,
+    0
+  );
 
   const formatLastMessageTime = (dateStr) => {
     if (!dateStr) return '';
@@ -49,7 +52,10 @@ const Sidebar = () => {
         date.getFullYear() === now.getFullYear();
 
       if (isToday) {
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return date.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
       }
 
       const yesterday = new Date();
@@ -77,8 +83,12 @@ const Sidebar = () => {
       return true;
     })
     .sort((a, b) => {
-      const timeA = a.lastMessage?.createdAt ? new Date(a.lastMessage.createdAt).getTime() : 0;
-      const timeB = b.lastMessage?.createdAt ? new Date(b.lastMessage.createdAt).getTime() : 0;
+      const timeA = a.lastMessage?.createdAt
+        ? new Date(a.lastMessage.createdAt).getTime()
+        : 0;
+      const timeB = b.lastMessage?.createdAt
+        ? new Date(b.lastMessage.createdAt).getTime()
+        : 0;
       if (timeA && timeB) return timeB - timeA;
       if (timeA) return -1;
       if (timeB) return 1;
@@ -86,30 +96,35 @@ const Sidebar = () => {
     });
 
   return (
-    <div className="flex flex-col h-full w-full min-h-0 bg-[#090d16]/95 backdrop-blur-xl select-none">
-      {/* 1. Top Header & Branding (Fixed height, cannot shrink) */}
-      <div className="flex-shrink-0 p-3.5 sm:p-4 border-b border-white/[0.07] flex items-center justify-between bg-white/[0.01]">
+    <div className="flex flex-col h-full w-full min-h-0 bg-[#fafbfc] select-none text-slate-800">
+      {/* 1. Top Header & Branding */}
+      <div className="flex-shrink-0 p-3.5 sm:p-4 border-b border-slate-200/80 flex items-center justify-between bg-white/90">
         <div className="flex items-center gap-3">
           <div className="relative group">
-            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 opacity-70 blur-sm group-hover:opacity-100 transition duration-300" />
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <IoChatbubbleEllipsesOutline className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#fca639] via-[#f47858] to-[#ea5575] flex items-center justify-center shadow-md shadow-orange-500/25">
+              <IoChatbubblesOutline className="w-5 h-5 text-white" />
             </div>
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="font-bold text-base sm:text-lg tracking-tight text-white flex items-center gap-1.5">
-                PulseChat
-                <IoSparkles className="w-3.5 h-3.5 text-indigo-400" />
+            <div className="flex items-center gap-1.5">
+              <h2 className="font-extrabold text-base sm:text-lg tracking-tight text-[#1e293b] flex items-center gap-1">
+                Pulse<span className="text-[#3b66de]">Chat</span>
               </h2>
+              <IoSparkles className="w-3.5 h-3.5 text-amber-500" />
             </div>
-            <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-              <span className={`w-2 h-2 rounded-full ${socket ? 'bg-emerald-500' : 'bg-amber-500'} relative flex`}>
+            <div className="flex items-center gap-1.5 text-[11px] text-[#64748b]">
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  socket ? 'bg-emerald-500' : 'bg-amber-500'
+                } relative flex`}
+              >
                 {socket && (
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 )}
               </span>
-              <span>{socket ? `${onlineUsers.length} Online` : 'Connecting...'}</span>
+              <span>
+                {socket ? `${onlineUsers.length} Online` : 'Connecting...'}
+              </span>
             </div>
           </div>
         </div>
@@ -118,29 +133,31 @@ const Sidebar = () => {
           onClick={fetchUsers}
           title="Refresh Contacts"
           disabled={loadingUsers}
-          className="w-8 h-8 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.08] flex items-center justify-center text-slate-300 hover:text-white transition-all disabled:opacity-50 active:scale-95 cursor-pointer"
+          className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-all disabled:opacity-50 active:scale-95 cursor-pointer shadow-xs"
         >
           <IoRefreshOutline
-            className={`w-4 h-4 ${loadingUsers ? 'animate-spin text-indigo-400' : ''}`}
+            className={`w-4 h-4 ${
+              loadingUsers ? 'animate-spin text-[#f47858]' : ''
+            }`}
           />
         </button>
       </div>
 
-      {/* 2. Search Bar (Fixed height, cannot shrink) */}
-      <div className="flex-shrink-0 p-3 pb-2">
+      {/* 2. Search Bar */}
+      <div className="flex-shrink-0 p-3 pb-2 bg-white/60">
         <div className="relative flex items-center">
-          <IoSearchOutline className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
+          <IoSearchOutline className="absolute left-4 w-4 h-4 text-[#9aa4b2] pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search contacts or @username..."
-            className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-indigo-500/60 focus:bg-white/[0.07] rounded-xl pl-10 pr-9 py-2 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+            placeholder="Search contacts..."
+            className="w-full bg-[#f1f3f7] border border-transparent focus:border-[#f47858]/50 focus:bg-white rounded-full pl-11 pr-9 py-2 text-sm text-[#2e384d] placeholder-[#9aa4b2] focus:outline-none focus:ring-2 focus:ring-[#f47858]/15 transition-all font-normal"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 text-slate-400 hover:text-slate-200 transition-colors"
+              className="absolute right-3.5 text-slate-400 hover:text-slate-600 transition-colors"
             >
               <IoCloseCircle className="w-4 h-4" />
             </button>
@@ -148,19 +165,25 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* 3. Category Filter Tabs (Fixed height, cannot shrink) */}
-      <div className="flex-shrink-0 px-3 py-1.5 flex items-center justify-between border-b border-white/[0.04]">
+      {/* 3. Category Filter Tabs */}
+      <div className="flex-shrink-0 px-3.5 py-1.5 flex items-center justify-between border-b border-slate-200/60 bg-white/40">
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3 py-1 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-indigo-600/25 text-indigo-300 border border-indigo-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                ? 'bg-slate-900 text-white shadow-xs'
+                : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
             }`}
           >
             <span>All Users</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-white/[0.06] text-slate-300">
+            <span
+              className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                activeTab === 'all'
+                  ? 'bg-white/20 text-white'
+                  : 'bg-slate-200 text-slate-600'
+              }`}
+            >
               {filteredUsers.length}
             </span>
           </button>
@@ -168,14 +191,14 @@ const Sidebar = () => {
           {totalUnread > 0 && (
             <button
               onClick={() => setActiveTab('unread')}
-              className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3 py-1 text-xs font-semibold rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === 'unread'
-                  ? 'bg-purple-600/25 text-purple-300 border border-purple-500/40 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
+                  ? 'bg-gradient-to-r from-[#fca639] to-[#ea5575] text-white shadow-xs shadow-orange-500/30'
+                  : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
               }`}
             >
               <span>Unread</span>
-              <span className="px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white animate-pulse">
+              <span className="px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-white text-[#ea5575]">
                 {totalUnread}
               </span>
             </button>
@@ -187,29 +210,29 @@ const Sidebar = () => {
         </span>
       </div>
 
-      {/* 4. User / Conversation List (Strict min-h-0 + overflow-y-auto to trigger proper scrolling) */}
-      <div className="flex-1 min-h-0 overflow-y-auto px-2.5 py-2 space-y-1.5">
+      {/* 4. User / Conversation List */}
+      <div className="flex-1 min-h-0 overflow-y-auto px-2.5 py-2 space-y-1">
         {loadingUsers ? (
           /* Loading Skeletons */
           Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/[0.04] animate-pulse"
+              className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-slate-100 animate-pulse shadow-xs"
             >
-              <div className="w-10 h-10 rounded-full bg-white/[0.08]" />
+              <div className="w-10 h-10 rounded-full bg-slate-200" />
               <div className="flex-1 space-y-2">
-                <div className="h-3.5 bg-white/[0.08] rounded w-2/3" />
-                <div className="h-2.5 bg-white/[0.05] rounded w-1/3" />
+                <div className="h-3.5 bg-slate-200 rounded-full w-2/3" />
+                <div className="h-2.5 bg-slate-100 rounded-full w-1/3" />
               </div>
             </div>
           ))
         ) : displayedUsers.length === 0 ? (
           /* Empty Search / Filter State */
           <div className="h-44 flex flex-col items-center justify-center text-center p-4">
-            <div className="w-11 h-11 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center mb-2.5 text-slate-400">
+            <div className="w-11 h-11 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center mb-2.5 text-slate-400">
               <IoPersonOutline className="w-5 h-5" />
             </div>
-            <p className="text-sm font-medium text-slate-300">
+            <p className="text-sm font-semibold text-slate-700">
               {activeTab === 'unread'
                 ? 'No unread messages'
                 : searchQuery
@@ -229,7 +252,7 @@ const Sidebar = () => {
                   setSearchQuery('');
                   setActiveTab('all');
                 }}
-                className="mt-3 text-xs text-indigo-400 hover:text-indigo-300 font-semibold cursor-pointer"
+                className="mt-3 text-xs text-[#3b66de] hover:text-[#254fc7] font-semibold cursor-pointer"
               >
                 Show all contacts
               </button>
@@ -244,30 +267,33 @@ const Sidebar = () => {
             const isTyping = Boolean(typingUsers?.[String(user._id)]);
 
             const authUserId = authUser?._id || authUser?.id;
-            const lastMsgSenderId = user.lastMessage?.senderId?._id || user.lastMessage?.senderId;
+            const lastMsgSenderId =
+              user.lastMessage?.senderId?._id || user.lastMessage?.senderId;
             const isLastMessageByMe = Boolean(
-              authUserId && lastMsgSenderId && String(lastMsgSenderId) === String(authUserId)
+              authUserId &&
+                lastMsgSenderId &&
+                String(lastMsgSenderId) === String(authUserId)
             );
 
             return (
               <button
                 key={user._id}
                 onClick={() => selectUser(user)}
-                className={`w-full text-left p-2.5 sm:p-3 rounded-2xl flex items-center gap-3 transition-all duration-200 border cursor-pointer ${
+                className={`w-full text-left p-2.5 sm:p-3 rounded-2xl flex items-center gap-3 transition-all duration-150 border cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-r from-indigo-600/30 via-purple-600/20 to-transparent border-indigo-500/60 shadow-lg shadow-indigo-600/10 text-white'
-                    : 'bg-transparent hover:bg-white/[0.04] border-transparent hover:border-white/[0.06] text-slate-300'
+                    ? 'bg-gradient-to-r from-orange-50/90 via-amber-50/50 to-white border-[#f47858]/40 shadow-xs text-slate-900'
+                    : 'bg-white hover:bg-slate-50/80 border-slate-200/60 hover:border-slate-300/80 text-slate-700 shadow-xs'
                 }`}
               >
-                {/* Modern Avatar with reliable gradient fallback */}
+                {/* Modern Avatar with gradient fallback */}
                 <UserAvatar user={user} size="md" isOnline={isOnline} />
 
                 {/* User Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-0.5">
                     <h3
-                      className={`text-sm font-semibold truncate ${
-                        isSelected ? 'text-white' : 'text-slate-200'
+                      className={`text-sm font-bold truncate ${
+                        isSelected ? 'text-[#1e293b]' : 'text-[#334155]'
                       }`}
                     >
                       {user.fullName}
@@ -279,7 +305,7 @@ const Sidebar = () => {
                     ) : (
                       <span
                         className={`text-[10px] font-medium flex-shrink-0 ml-1 ${
-                          isOnline ? 'text-emerald-400' : 'text-slate-500'
+                          isOnline ? 'text-emerald-600' : 'text-slate-400'
                         }`}
                       >
                         {isOnline ? 'Online' : 'Offline'}
@@ -287,14 +313,23 @@ const Sidebar = () => {
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between gap-1.5 text-xs text-slate-400 min-h-[18px]">
+                  <div className="flex items-center justify-between gap-1.5 text-xs text-slate-500 min-h-[18px]">
                     {/* Left: Typing indicator OR Last Message snippet OR Username */}
                     {isTyping ? (
-                      <div className="flex items-center gap-1.5 text-indigo-400 font-medium text-xs min-w-0">
+                      <div className="flex items-center gap-1.5 text-[#f47858] font-semibold text-xs min-w-0">
                         <span className="flex gap-0.5 items-center">
-                          <span className="w-1 h-1 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                          <span className="w-1 h-1 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                          <span className="w-1 h-1 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                          <span
+                            className="w-1 h-1 rounded-full bg-[#f47858] animate-bounce"
+                            style={{ animationDelay: '0ms' }}
+                          />
+                          <span
+                            className="w-1 h-1 rounded-full bg-[#f47858] animate-bounce"
+                            style={{ animationDelay: '150ms' }}
+                          />
+                          <span
+                            className="w-1 h-1 rounded-full bg-[#f47858] animate-bounce"
+                            style={{ animationDelay: '300ms' }}
+                          />
                         </span>
                         <span className="animate-pulse">typing...</span>
                       </div>
@@ -303,29 +338,40 @@ const Sidebar = () => {
                         {isLastMessageByMe && (
                           <span className="flex-shrink-0 text-slate-400 text-xs">
                             {user.lastMessage.seen ? (
-                              <IoCheckmarkDone className="w-3.5 h-3.5 text-sky-400 inline" title="Seen" />
+                              <IoCheckmarkDone
+                                className="w-3.5 h-3.5 text-sky-500 inline"
+                                title="Seen"
+                              />
                             ) : user.lastMessage.delivered ? (
-                              <IoCheckmarkDone className="w-3.5 h-3.5 text-slate-400 inline" title="Delivered" />
+                              <IoCheckmarkDone
+                                className="w-3.5 h-3.5 text-slate-400 inline"
+                                title="Delivered"
+                              />
                             ) : (
-                              <IoCheckmark className="w-3.5 h-3.5 text-slate-400 inline" title="Sent" />
+                              <IoCheckmark
+                                className="w-3.5 h-3.5 text-slate-400 inline"
+                                title="Sent"
+                              />
                             )}
                           </span>
                         )}
                         <p
                           className={`truncate text-xs ${
                             unreadCount > 0
-                              ? 'font-semibold text-slate-100'
-                              : 'text-slate-400'
+                              ? 'font-bold text-slate-900'
+                              : 'text-slate-500'
                           }`}
                         >
-                          {isLastMessageByMe ? `You: ${user.lastMessage.content}` : user.lastMessage.content}
+                          {isLastMessageByMe
+                            ? `You: ${user.lastMessage.content}`
+                            : user.lastMessage.content}
                         </p>
                       </div>
                     ) : (
                       <div className="flex items-center gap-1.5 min-w-0 text-xs text-slate-400">
                         <span className="truncate">@{user.userName}</span>
                         {user.gender && (
-                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-white/[0.06] text-slate-400 capitalize">
+                          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-500 capitalize">
                             {user.gender}
                           </span>
                         )}
@@ -334,11 +380,11 @@ const Sidebar = () => {
 
                     {/* Right: Unread Badge or subtle presence dot */}
                     {unreadCount > 0 ? (
-                      <span className="flex-shrink-0 min-w-5 h-5 px-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 text-white text-[11px] font-bold flex items-center justify-center shadow-lg shadow-indigo-500/40 ring-1 ring-white/20 animate-in zoom-in-75 duration-150">
+                      <span className="flex-shrink-0 min-w-5 h-5 px-1.5 rounded-full bg-gradient-to-r from-[#fca639] via-[#f47858] to-[#ea5575] text-white text-[11px] font-bold flex items-center justify-center shadow-xs shadow-orange-500/40 animate-in zoom-in-75 duration-150">
                         {unreadCount > 99 ? '99+' : unreadCount}
                       </span>
                     ) : isOnline && !user.lastMessage ? (
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
                     ) : null}
                   </div>
                 </div>
@@ -348,11 +394,11 @@ const Sidebar = () => {
         )}
       </div>
 
-      {/* 5. Bottom Current User Profile & Logout Bar (Fixed height, cannot shrink) */}
-      <div className="flex-shrink-0 p-3 sm:p-3.5 bg-white/[0.02] border-t border-white/[0.07] flex items-center justify-between gap-3">
+      {/* 5. Bottom Current User Profile & Logout Bar */}
+      <div className="flex-shrink-0 p-3 sm:p-3.5 bg-white border-t border-slate-200/80 flex items-center justify-between gap-3 shadow-xs">
         <div
           onClick={() => setIsProfileModalOpen(true)}
-          className="flex items-center gap-2.5 min-w-0 cursor-pointer p-1.5 -m-1.5 rounded-xl hover:bg-white/[0.05] transition-all group flex-1"
+          className="flex items-center gap-2.5 min-w-0 cursor-pointer p-1.5 -m-1.5 rounded-2xl hover:bg-slate-50 transition-all group flex-1"
           title="Edit profile"
         >
           <div className="relative">
@@ -362,12 +408,12 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-white truncate leading-tight group-hover:text-indigo-300 transition-colors">
+            <p className="text-sm font-bold text-[#1e293b] truncate leading-tight group-hover:text-[#f47858] transition-colors">
               {authUser?.fullName || 'My Account'}
             </p>
-            <p className="text-xs text-slate-400 truncate leading-tight flex items-center gap-1">
+            <p className="text-xs text-slate-500 truncate leading-tight flex items-center gap-1">
               <span>@{authUser?.userName || 'user'}</span>
-              <span className="text-[10px] text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="text-[10px] text-[#f47858] opacity-0 group-hover:opacity-100 transition-opacity font-medium">
                 • Edit profile
               </span>
             </p>
@@ -378,7 +424,7 @@ const Sidebar = () => {
           <button
             onClick={() => setIsProfileModalOpen(true)}
             title="Edit profile"
-            className="flex-shrink-0 p-2.5 rounded-xl bg-white/[0.04] hover:bg-indigo-500/20 text-slate-400 hover:text-indigo-300 border border-white/[0.06] hover:border-indigo-500/30 transition-all duration-200 active:scale-95 cursor-pointer"
+            className="flex-shrink-0 p-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-600 hover:text-slate-900 border border-slate-200/70 transition-all active:scale-95 cursor-pointer"
           >
             <IoSettingsOutline className="w-4 h-4" />
           </button>
@@ -387,9 +433,9 @@ const Sidebar = () => {
             onClick={logout}
             disabled={authLoading}
             title="Sign out"
-            className="flex-shrink-0 p-2.5 rounded-xl bg-white/[0.04] hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 border border-white/[0.06] hover:border-rose-500/30 transition-all duration-200 active:scale-95 cursor-pointer"
+            className="flex-shrink-0 p-2 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200/70 hover:border-rose-200 transition-all active:scale-95 cursor-pointer"
           >
-            <IoLogOutOutline className="w-5 h-5" />
+            <IoLogOutOutline className="w-4 h-4" />
           </button>
         </div>
       </div>

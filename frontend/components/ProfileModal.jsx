@@ -103,15 +103,19 @@ const ProfileModal = ({ isOpen, onClose }) => {
   // Compute default avatar based on gender and username
   const getDefaultAvatarUrl = (userGender = gender) => {
     const isFemale = userGender === 'female';
-    const seed = encodeURIComponent(authUser?.userName || authUser?.fullName || 'user');
+    const seed = encodeURIComponent(
+      authUser?.userName || authUser?.fullName || 'user'
+    );
     return isFemale
       ? `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&top=bob,bun,curly,curvy,longButNotTooLong,miaWallace,straight01,straight02,straightAndStrand&facialHairProbability=0`
       : `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&top=shortFlat,shortRound,shortWaved,theCaesar,theCaesarAndSidePart,shavedSides&facialHair=beardLight,beardMedium,moustacheMagnum&facialHairProbability=60`;
   };
 
-  const isUsingDefaultAvatar = !isCustomPhoto && (!photoPreview || photoPreview === getDefaultAvatarUrl(gender));
+  const isUsingDefaultAvatar =
+    !isCustomPhoto &&
+    (!photoPreview || photoPreview === getDefaultAvatarUrl(gender));
 
-  // Process image file (square crop + JPEG compression)
+  // Process image file
   const processImageFile = (file) => {
     if (!file) return;
 
@@ -191,13 +195,11 @@ const ProfileModal = ({ isOpen, onClose }) => {
     setIsDragging(false);
   };
 
-  // Reset to default avatar
   const handleResetToDefault = () => {
     setPhotoPreview(getDefaultAvatarUrl(gender));
     setIsCustomPhoto(false);
   };
 
-  // Generate random avatar
   const handleGenerateRandomAvatar = () => {
     const styles = ['avataaars', 'adventurer', 'bottts', 'lorelei'];
     const randomStyle = styles[Math.floor(Math.random() * styles.length)];
@@ -207,7 +209,6 @@ const ProfileModal = ({ isOpen, onClose }) => {
     setIsCustomPhoto(false);
   };
 
-  // Save changes
   const handleSave = async (e) => {
     e.preventDefault();
     if (!fullName.trim()) {
@@ -241,21 +242,23 @@ const ProfileModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#071f66]/60 backdrop-blur-xs animate-in fade-in duration-150 select-none">
       {/* Click outside backdrop */}
       <div className="fixed inset-0" onClick={onClose} />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-[460px] bg-[#0f141c] border border-white/10 rounded-2xl shadow-2xl shadow-black/80 overflow-hidden z-10 flex flex-col">
+      <div className="relative w-full max-w-[460px] bg-white rounded-[32px] border border-white/80 shadow-[0_25px_60px_-15px_rgba(5,20,80,0.45)] overflow-hidden z-10 flex flex-col text-slate-800">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-white/[0.08] flex items-center justify-between">
+        <div className="px-6 py-4.5 border-b border-slate-200/80 flex items-center justify-between bg-slate-50/50">
           <div>
-            <h3 className="text-base font-semibold text-white">Edit profile</h3>
-            <p className="text-xs text-slate-400 mt-0.5">Manage your photo, display name, and details.</p>
+            <h3 className="text-base font-bold text-[#1e293b]">Edit Profile</h3>
+            <p className="text-xs text-[#64748b] mt-0.5">
+              Manage your photo, display name, and details
+            </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
+            className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition cursor-pointer"
             aria-label="Close"
           >
             <IoClose className="w-5 h-5" />
@@ -263,7 +266,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSave} className="p-6 space-y-5">
+        <form onSubmit={handleSave} className="p-6 space-y-4.5">
           {/* Hidden File Input */}
           <input
             ref={fileInputRef}
@@ -275,17 +278,17 @@ const ProfileModal = ({ isOpen, onClose }) => {
 
           {/* Profile Photo Row */}
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-2.5">
+            <label className="block text-xs font-semibold text-slate-700 mb-2">
               Profile photo
             </label>
             <div
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
-              className={`p-3.5 rounded-xl border transition flex items-center gap-4 ${
+              className={`p-3.5 rounded-2xl border transition flex items-center gap-4 ${
                 isDragging
-                  ? 'border-indigo-500 bg-indigo-500/10'
-                  : 'border-white/[0.08] bg-white/[0.02]'
+                  ? 'border-[#f47858] bg-orange-50'
+                  : 'border-slate-200 bg-[#f8fafc]'
               }`}
             >
               {/* Avatar with click-to-upload overlay */}
@@ -298,43 +301,43 @@ const ProfileModal = ({ isOpen, onClose }) => {
                   user={previewUser}
                   size="2xl"
                   showStatus={false}
-                  className="rounded-full ring-2 ring-white/10 group-hover:ring-indigo-500/50 transition"
+                  className="rounded-full ring-3 ring-white group-hover:ring-[#f47858]/50 shadow-xs transition"
                 />
-                <div className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition text-white">
+                <div className="absolute inset-0 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition text-white">
                   <IoCameraOutline className="w-5 h-5" />
                 </div>
               </div>
 
               {/* Actions & info */}
               <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-white/10 hover:bg-white/15 text-white transition flex items-center gap-1.5 cursor-pointer"
+                    className="px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-900 text-white hover:bg-slate-800 transition flex items-center gap-1.5 cursor-pointer shadow-xs"
                   >
                     <IoCloudUploadOutline className="w-3.5 h-3.5" />
-                    Upload image
+                    Upload
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setShowAvatarPicker((prev) => !prev)}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition flex items-center gap-1.5 cursor-pointer ${
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-full border transition flex items-center gap-1.5 cursor-pointer ${
                       showAvatarPicker
-                        ? 'border-indigo-500/50 bg-indigo-500/20 text-indigo-300'
-                        : 'border-white/10 bg-white/[0.03] text-slate-300 hover:text-white hover:bg-white/[0.06]'
+                        ? 'border-[#f47858] bg-orange-50 text-[#f47858]'
+                        : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     <IoColorPaletteOutline className="w-3.5 h-3.5" />
-                    {showAvatarPicker ? 'Hide avatars' : 'Choose avatar'}
+                    {showAvatarPicker ? 'Hide' : 'Presets'}
                   </button>
 
                   {!isUsingDefaultAvatar && (
                     <button
                       type="button"
                       onClick={handleResetToDefault}
-                      className="px-2 py-1.5 text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition flex items-center gap-1 cursor-pointer"
+                      className="px-2.5 py-1.5 text-xs text-rose-600 hover:bg-rose-50 rounded-full transition flex items-center gap-1 cursor-pointer font-medium"
                       title="Reset to default avatar"
                     >
                       <IoTrashOutline className="w-3.5 h-3.5" />
@@ -346,20 +349,22 @@ const ProfileModal = ({ isOpen, onClose }) => {
                 <p className="text-[11px] text-slate-500 truncate">
                   {isDragging
                     ? 'Drop image here to update'
-                    : 'Click avatar or upload button. JPG, PNG or WebP.'}
+                    : 'Click avatar or upload button. JPG, PNG, WebP.'}
                 </p>
               </div>
             </div>
 
             {/* Expandable Avatar Presets Drawer */}
             {showAvatarPicker && (
-              <div className="mt-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] space-y-2.5 animate-in fade-in duration-150">
+              <div className="mt-3 p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 animate-in fade-in duration-150">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-slate-400">Select an illustration</span>
+                  <span className="text-xs font-semibold text-slate-600">
+                    Choose illustration
+                  </span>
                   <button
                     type="button"
                     onClick={handleGenerateRandomAvatar}
-                    className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-medium transition cursor-pointer"
+                    className="text-xs text-[#f47858] hover:text-orange-600 flex items-center gap-1 font-semibold transition cursor-pointer"
                   >
                     <IoSparklesOutline className="w-3.5 h-3.5" />
                     Randomize
@@ -371,24 +376,27 @@ const ProfileModal = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={handleResetToDefault}
-                    className={`relative p-1 rounded-xl border flex flex-col items-center gap-1 transition cursor-pointer ${
+                    className={`relative p-1 rounded-2xl border flex flex-col items-center gap-1 transition cursor-pointer ${
                       isUsingDefaultAvatar
-                        ? 'border-indigo-500 bg-indigo-500/20 ring-1 ring-indigo-500'
-                        : 'border-white/10 hover:border-white/20 bg-white/[0.02]'
+                        ? 'border-[#f47858] bg-orange-50 ring-2 ring-[#f47858]/30'
+                        : 'border-slate-200 hover:border-slate-300 bg-white'
                     }`}
                     title="Default Avatar"
                   >
                     <img
                       src={getDefaultAvatarUrl(gender)}
                       alt="Default"
-                      className="w-10 h-10 rounded-full object-cover bg-slate-800"
+                      className="w-10 h-10 rounded-full object-cover bg-slate-100"
                     />
-                    <span className="text-[10px] text-slate-400 truncate max-w-full">Default</span>
+                    <span className="text-[10px] text-slate-600 font-medium truncate max-w-full">
+                      Default
+                    </span>
                   </button>
 
                   {/* Preset Avatars */}
                   {AVATAR_PRESETS.map((preset) => {
-                    const isSelected = !isCustomPhoto && photoPreview === preset.url;
+                    const isSelected =
+                      !isCustomPhoto && photoPreview === preset.url;
                     return (
                       <button
                         key={preset.id}
@@ -397,19 +405,19 @@ const ProfileModal = ({ isOpen, onClose }) => {
                           setPhotoPreview(preset.url);
                           setIsCustomPhoto(false);
                         }}
-                        className={`relative p-1 rounded-xl border flex flex-col items-center gap-1 transition cursor-pointer ${
+                        className={`relative p-1 rounded-2xl border flex flex-col items-center gap-1 transition cursor-pointer ${
                           isSelected
-                            ? 'border-indigo-500 bg-indigo-500/20 ring-1 ring-indigo-500'
-                            : 'border-white/10 hover:border-white/20 bg-white/[0.02]'
+                            ? 'border-[#f47858] bg-orange-50 ring-2 ring-[#f47858]/30'
+                            : 'border-slate-200 hover:border-slate-300 bg-white'
                         }`}
                         title={preset.name}
                       >
                         <img
                           src={preset.url}
                           alt={preset.name}
-                          className="w-10 h-10 rounded-full object-cover bg-slate-800"
+                          className="w-10 h-10 rounded-full object-cover bg-slate-100"
                         />
-                        <span className="text-[10px] text-slate-400 truncate max-w-full">
+                        <span className="text-[10px] text-slate-600 font-medium truncate max-w-full">
                           {preset.name}
                         </span>
                       </button>
@@ -422,8 +430,8 @@ const ProfileModal = ({ isOpen, onClose }) => {
 
           {/* Display Name Input */}
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5">
-              Display name
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+              Display Name
             </label>
             <input
               type="text"
@@ -431,31 +439,36 @@ const ProfileModal = ({ isOpen, onClose }) => {
               onChange={(e) => setFullName(e.target.value)}
               placeholder="e.g. Alex Morgan"
               maxLength={50}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-sm placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+              className="w-full px-4 py-2.5 rounded-full bg-[#f1f3f7] border border-transparent focus:bg-white focus:border-[#f47858]/50 focus:ring-2 focus:ring-[#f47858]/15 text-slate-800 text-sm placeholder:text-slate-400 outline-none transition"
             />
           </div>
 
           {/* Username (Read-only) */}
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
               Username
             </label>
-            <div className="flex items-center px-3.5 py-2 rounded-xl bg-white/[0.02] border border-white/5 text-sm text-slate-400">
-              <span className="text-slate-500 select-none mr-0.5">@</span>
+            <div className="flex items-center px-4 py-2.5 rounded-full bg-slate-100 border border-slate-200 text-sm text-slate-600">
+              <span className="text-slate-400 select-none mr-0.5">@</span>
               <input
                 type="text"
                 disabled
                 value={authUser?.userName || ''}
-                className="bg-transparent border-none outline-none text-slate-300 flex-1 cursor-not-allowed select-none text-sm"
+                className="bg-transparent border-none outline-none text-slate-700 flex-1 cursor-not-allowed select-none text-sm font-medium"
               />
-              <IoLockClosedOutline className="w-3.5 h-3.5 text-slate-500 ml-2" title="Usernames cannot be changed" />
+              <IoLockClosedOutline
+                className="w-4 h-4 text-slate-400 ml-2"
+                title="Usernames cannot be changed"
+              />
             </div>
-            <p className="text-[11px] text-slate-500 mt-1">Usernames are permanent and cannot be changed.</p>
+            <p className="text-[11px] text-slate-400 mt-1 pl-1">
+              Usernames are permanent and cannot be changed.
+            </p>
           </div>
 
           {/* Gender Selection */}
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
               Gender
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -470,10 +483,10 @@ const ProfileModal = ({ isOpen, onClose }) => {
                       setPhotoPreview(getDefaultAvatarUrl(newGender));
                     }
                   }}
-                  className={`py-2 px-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-medium transition cursor-pointer ${
+                  className={`py-2 px-3 rounded-full border flex items-center justify-center gap-1.5 text-xs font-semibold transition cursor-pointer ${
                     gender === opt.value
-                      ? 'border-indigo-500 bg-indigo-500/20 text-white'
-                      : 'border-white/10 bg-white/[0.02] text-slate-400 hover:text-white hover:bg-white/[0.05]'
+                      ? 'border-[#f47858] bg-orange-50 text-[#f47858] shadow-2xs'
+                      : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
                   }`}
                 >
                   {opt.icon}
@@ -484,19 +497,19 @@ const ProfileModal = ({ isOpen, onClose }) => {
           </div>
 
           {/* Footer Actions */}
-          <div className="pt-2 flex items-center justify-end gap-2.5 border-t border-white/[0.08]">
+          <div className="pt-2 flex items-center justify-end gap-2.5 border-t border-slate-200/80">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-full hover:bg-slate-100 transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] rounded-lg shadow-sm transition disabled:opacity-50 flex items-center gap-1.5 cursor-pointer"
+              className="px-5 py-2.5 text-xs font-bold text-white uppercase tracking-wider bg-gradient-to-r from-[#fca639] via-[#f47858] to-[#ea5575] hover:opacity-95 active:scale-[0.98] rounded-full shadow-md shadow-orange-500/25 transition disabled:opacity-50 flex items-center gap-1.5 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -506,7 +519,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
               ) : (
                 <>
                   <IoCheckmark className="w-4 h-4" />
-                  <span>Save changes</span>
+                  <span>Save Changes</span>
                 </>
               )}
             </button>

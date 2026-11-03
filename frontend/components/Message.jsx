@@ -31,7 +31,9 @@ const Message = ({ message }) => {
 
   const authUserId = authUser?._id || authUser?.id;
   const senderId = message.senderId?._id || message.senderId;
-  const isMe = Boolean(authUserId && senderId && String(senderId) === String(authUserId));
+  const isMe = Boolean(
+    authUserId && senderId && String(senderId) === String(authUserId)
+  );
   const textContent = message.content || message.message || '';
   const isDeleted = Boolean(message.isDeleted);
   const isEdited = Boolean(message.isEdited);
@@ -40,7 +42,10 @@ const Message = ({ message }) => {
     if (!dateStr) return '';
     try {
       const date = new Date(dateStr);
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return date.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
     } catch {
       return '';
     }
@@ -70,14 +75,14 @@ const Message = ({ message }) => {
   const renderDeliveryStatus = () => {
     if (isSeen) {
       return (
-        <span className="flex items-center text-sky-300" title="Seen">
+        <span className="flex items-center text-white" title="Seen">
           <IoCheckmarkDone className="w-3.5 h-3.5" />
         </span>
       );
     }
     if (isDelivered) {
       return (
-        <span className="flex items-center text-white/70" title="Delivered">
+        <span className="flex items-center text-white/80" title="Delivered">
           <IoCheckmarkDone className="w-3.5 h-3.5" />
         </span>
       );
@@ -133,7 +138,7 @@ const Message = ({ message }) => {
         {/* Floating Quick Action Toolbar on Hover */}
         {!isDeleted && (
           <div
-            className={`absolute -top-7 z-10 hidden group-hover:flex items-center gap-0.5 px-1 py-0.5 rounded-lg bg-[#0e1422]/95 backdrop-blur-md border border-white/10 shadow-lg animate-in fade-in duration-100 ${
+            className={`absolute -top-7 z-10 hidden group-hover:flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200 shadow-md animate-in fade-in duration-100 ${
               isMe ? 'right-0' : 'left-0'
             }`}
           >
@@ -142,19 +147,19 @@ const Message = ({ message }) => {
               <button
                 onClick={() => setShowReactionPicker((prev) => !prev)}
                 title="React"
-                className="p-1 rounded-md text-slate-400 hover:text-amber-300 hover:bg-white/[0.08] transition cursor-pointer text-xs"
+                className="p-1 rounded-full text-slate-500 hover:text-amber-500 hover:bg-slate-100 transition cursor-pointer text-xs"
               >
                 <IoHappyOutline className="w-3.5 h-3.5" />
               </button>
 
               {/* Reaction Popup */}
               {showReactionPicker && (
-                <div className="absolute bottom-8 left-0 z-30 flex items-center gap-1 p-1 rounded-xl bg-[#0e1422] border border-white/15 shadow-xl animate-in fade-in duration-100">
+                <div className="absolute bottom-8 left-0 z-30 flex items-center gap-1 p-1 rounded-2xl bg-white border border-slate-200 shadow-xl animate-in fade-in duration-100">
                   {quickReactions.map((emoji) => (
                     <button
                       key={emoji}
                       onClick={() => handleReaction(emoji)}
-                      className="w-7 h-7 rounded-lg hover:bg-white/[0.1] hover:scale-115 flex items-center justify-center text-sm transition cursor-pointer"
+                      className="w-7 h-7 rounded-xl hover:bg-slate-100 hover:scale-115 flex items-center justify-center text-sm transition cursor-pointer"
                     >
                       {emoji}
                     </button>
@@ -169,12 +174,14 @@ const Message = ({ message }) => {
                 setReplyingTo({
                   _id: message._id,
                   content: textContent,
-                  senderName: isMe ? 'You' : selectedUser?.fullName || 'Contact',
+                  senderName: isMe
+                    ? 'You'
+                    : selectedUser?.fullName || 'Contact',
                   senderId: message.senderId,
                 })
               }
               title="Reply"
-              className="p-1 rounded-md text-slate-400 hover:text-indigo-400 hover:bg-white/[0.08] transition cursor-pointer text-xs"
+              className="p-1 rounded-full text-slate-500 hover:text-[#f47858] hover:bg-slate-100 transition cursor-pointer text-xs"
             >
               <IoArrowUndoOutline className="w-3.5 h-3.5" />
             </button>
@@ -183,10 +190,10 @@ const Message = ({ message }) => {
             <button
               onClick={handleCopy}
               title="Copy text"
-              className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-white/[0.08] transition cursor-pointer text-xs"
+              className="p-1 rounded-full text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition cursor-pointer text-xs"
             >
               {copied ? (
-                <IoCheckmark className="w-3.5 h-3.5 text-emerald-400" />
+                <IoCheckmark className="w-3.5 h-3.5 text-emerald-500" />
               ) : (
                 <IoCopyOutline className="w-3.5 h-3.5" />
               )}
@@ -202,7 +209,7 @@ const Message = ({ message }) => {
                   })
                 }
                 title="Edit message"
-                className="p-1 rounded-md text-slate-400 hover:text-sky-400 hover:bg-white/[0.08] transition cursor-pointer text-xs"
+                className="p-1 rounded-full text-slate-500 hover:text-sky-500 hover:bg-slate-100 transition cursor-pointer text-xs"
               >
                 <IoPencilOutline className="w-3.5 h-3.5" />
               </button>
@@ -213,7 +220,7 @@ const Message = ({ message }) => {
               <button
                 onClick={handleDelete}
                 title="Delete message"
-                className="p-1 rounded-md text-slate-400 hover:text-rose-400 hover:bg-white/[0.08] transition cursor-pointer text-xs"
+                className="p-1 rounded-full text-slate-500 hover:text-rose-500 hover:bg-slate-100 transition cursor-pointer text-xs"
               >
                 <IoTrashOutline className="w-3.5 h-3.5" />
               </button>
@@ -223,35 +230,51 @@ const Message = ({ message }) => {
 
         {/* Message Bubble Container */}
         <div
-          className={`px-3.5 py-2 rounded-2xl text-sm leading-relaxed shadow-xs transition-colors select-text ${
+          className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed transition-all select-text ${
             isDeleted
-              ? 'bg-white/[0.03] border border-white/[0.06] text-slate-400 italic rounded-2xl'
+              ? 'bg-slate-100 border border-slate-200 text-slate-400 italic rounded-2xl'
               : isMe
-              ? 'bg-indigo-600 text-white rounded-br-xs'
-              : 'bg-[#181f2e] text-slate-100 border border-white/[0.07] rounded-bl-xs'
+              ? 'bg-gradient-to-r from-[#fca639] via-[#f47858] to-[#ea5575] text-white rounded-br-xs shadow-md shadow-orange-500/20'
+              : 'bg-white text-[#2e384d] border border-slate-200/90 rounded-bl-xs shadow-xs'
           }`}
         >
-          {/* Quoted Reply Card (if message is replying to another) */}
+          {/* Quoted Reply Card */}
           {message.replyTo?.content && !isDeleted && (
             <div
               onClick={() => {
-                const target = document.getElementById(`message-${message.replyTo._id}`);
+                const target = document.getElementById(
+                  `message-${message.replyTo._id}`
+                );
                 if (target) {
-                  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  target.classList.add('ring-2', 'ring-indigo-400');
-                  setTimeout(() => target.classList.remove('ring-2', 'ring-indigo-400'), 1500);
+                  target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                  });
+                  target.classList.add('ring-2', 'ring-[#f47858]');
+                  setTimeout(
+                    () => target.classList.remove('ring-2', 'ring-[#f47858]'),
+                    1500
+                  );
                 }
               }}
-              className={`mb-1.5 p-2 rounded-lg text-xs cursor-pointer transition text-left border-l-2 ${
+              className={`mb-1.5 p-2 rounded-xl text-xs cursor-pointer transition text-left border-l-3 ${
                 isMe
-                  ? 'bg-black/20 border-white/70 hover:bg-black/30'
-                  : 'bg-white/[0.04] border-indigo-400 hover:bg-white/[0.08]'
+                  ? 'bg-black/15 border-white/80 hover:bg-black/25'
+                  : 'bg-orange-50 border-[#f47858] text-slate-700 hover:bg-orange-100/60'
               }`}
             >
-              <p className={`font-medium text-[11px] truncate ${isMe ? 'text-indigo-100' : 'text-indigo-300'}`}>
+              <p
+                className={`font-semibold text-[11px] truncate ${
+                  isMe ? 'text-white' : 'text-[#f47858]'
+                }`}
+              >
                 {message.replyTo.senderName || 'Message'}
               </p>
-              <p className="text-slate-300 text-[11px] truncate opacity-90 mt-0.5">
+              <p
+                className={`text-[11px] truncate mt-0.5 ${
+                  isMe ? 'text-white/80' : 'text-slate-600'
+                }`}
+              >
                 {message.replyTo.content}
               </p>
             </div>
@@ -266,11 +289,13 @@ const Message = ({ message }) => {
             {/* Time & Delivery Status inside bubble */}
             <span
               className={`inline-flex items-center gap-1 text-[10px] select-none leading-none flex-shrink-0 ml-auto pt-1 ${
-                isMe ? 'text-indigo-100/75' : 'text-slate-400'
+                isMe ? 'text-white/80' : 'text-slate-400'
               }`}
             >
               <span>{formatTime(message.createdAt)}</span>
-              {isEdited && !isDeleted && <span className="text-[9px] opacity-75">(edited)</span>}
+              {isEdited && !isDeleted && (
+                <span className="text-[9px] opacity-75">(edited)</span>
+              )}
               {isMe && !isDeleted && renderDeliveryStatus()}
             </span>
           </div>
@@ -287,15 +312,15 @@ const Message = ({ message }) => {
               <button
                 key={emoji}
                 onClick={() => reactToMessage(message._id, emoji)}
-                className={`px-2 py-0.5 rounded-full text-xs flex items-center gap-1 border transition cursor-pointer ${
+                className={`px-2 py-0.5 rounded-full text-xs flex items-center gap-1 border transition cursor-pointer shadow-2xs ${
                   hasReacted
-                    ? 'bg-indigo-600/30 border-indigo-500/50 text-indigo-200'
-                    : 'bg-white/[0.05] border-white/[0.08] text-slate-300 hover:bg-white/[0.1]'
+                    ? 'bg-orange-50 border-[#f47858] text-[#f47858]'
+                    : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                 }`}
                 title={hasReacted ? 'Remove reaction' : `React with ${emoji}`}
               >
                 <span>{emoji}</span>
-                <span className="text-[10px] font-semibold">{count}</span>
+                <span className="text-[10px] font-bold">{count}</span>
               </button>
             ))}
           </div>

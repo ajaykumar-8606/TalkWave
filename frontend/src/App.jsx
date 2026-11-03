@@ -18,12 +18,14 @@ function MainContent() {
         position="top-center"
         toastOptions={{
           style: {
-            background: "#0c101b",
-            color: "#f8fafc",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            backdropFilter: "blur(16px)",
-            borderRadius: "12px",
-            fontSize: "14px",
+            background: "#ffffff",
+            color: "#1e293b",
+            border: "1px solid #e2e8f0",
+            borderRadius: "16px",
+            boxShadow: "0 10px 30px -5px rgba(10, 34, 120, 0.2)",
+            fontSize: "13px",
+            fontWeight: "500",
+            padding: "12px 18px",
           },
         }}
       />
