@@ -6,7 +6,8 @@ A modern, responsive, real-time messaging web application built with the **MERN*
 <a href="https://github.com/ajaykumar-8606/Chat_application" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github" alt="GitHub Repo" /></a>
 
 > 🚀 **Live Application:** <a href="https://chat-application-p7j6.onrender.com" target="_blank" rel="noopener noreferrer">https://chat-application-p7j6.onrender.com</a>  
-> ⚡ **Backend API Server:** <a href="https://chat-application-backend-eafa.onrender.com" target="_blank" rel="noopener noreferrer">https://chat-application-backend-eafa.onrender.com</a>
+> ⚡ **Backend API Server:** <a href="https://chat-application-backend-eafa.onrender.com" target="_blank" rel="noopener noreferrer">https://chat-application-backend-eafa.onrender.com</a>  
+> 💡 *Tip: On GitHub, hold <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) or middle-click the link to open in a separate tab.*
 
 ---
 
