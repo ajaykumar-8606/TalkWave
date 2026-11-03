@@ -519,17 +519,6 @@ const Signup = ({ onSwitchToLogin }) => {
             )}
           </div>
 
-          {/* Quick Demo Autofill Helper */}
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={handleAutofillDemo}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 hover:bg-slate-100/90 border border-slate-200/70 text-[11px] font-medium text-slate-500 hover:text-[#f47858] transition-colors cursor-pointer"
-            >
-              <IoFlashOutline className="w-3 h-3 text-amber-500" />
-              <span>Autofill test details</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
