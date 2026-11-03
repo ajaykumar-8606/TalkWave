@@ -85,20 +85,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signup = async (customData) => {
-    const data = customData || formData;
+    const signupData = customData || formData;
     setLoading(true);
     setError('');
     setSuccess('');
 
     // Client-side validation
-    if (!data.fullName?.trim() || !data.userName?.trim() || !data.password || !data.confirmPassword || !data.gender) {
+    if (!signupData.fullName?.trim() || !signupData.userName?.trim() || !signupData.password || !signupData.confirmPassword || !signupData.gender) {
       const msg = 'All fields are required';
       setError(msg);
       setLoading(false);
       return { success: false, error: msg };
     }
 
-    if (data.password !== data.confirmPassword) {
+    if (signupData.password !== signupData.confirmPassword) {
       const msg = 'Passwords do not match';
       setError(msg);
       setLoading(false);
@@ -106,11 +106,11 @@ export const AuthProvider = ({ children }) => {
     }
 
     // Enforce strong password: >=8 chars, uppercase, lowercase, number, special char
-    const minLength = data.password.length >= 8;
-    const hasUpper = /[A-Z]/.test(data.password);
-    const hasLower = /[a-z]/.test(data.password);
-    const hasNumber = /[0-9]/.test(data.password);
-    const hasSpecial = /[!@#$%^&*(),.?":{}|<>_\-+=\\/\[\]]/.test(data.password);
+    const minLength = signupData.password.length >= 8;
+    const hasUpper = /[A-Z]/.test(signupData.password);
+    const hasLower = /[a-z]/.test(signupData.password);
+    const hasNumber = /[0-9]/.test(signupData.password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>_\-+=\\/[\]]/.test(signupData.password);
 
     if (!minLength || !hasUpper || !hasLower || !hasNumber || !hasSpecial) {
       const msg = 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
@@ -121,25 +121,26 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const { data } = await axios.post('/api/user/register', {
-        fullName: data.fullName.trim(),
-        userName: data.userName.trim(),
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-        gender: data.gender,
+      const response = await axios.post('/api/user/register', {
+        fullName: signupData.fullName.trim(),
+        userName: signupData.userName.trim(),
+        password: signupData.password,
+        confirmPassword: signupData.confirmPassword,
+        gender: signupData.gender,
       });
 
-      if (data.success) {
-        setSuccess(data.message || 'Account created successfully!');
-        toast.success(data.message || 'Account created successfully!');
+      const resData = response.data;
+      if (resData.success) {
+        setSuccess(resData.message || 'Account created successfully!');
+        toast.success(resData.message || 'Account created successfully!');
         navigate('/login');
         setLoading(false);
-        return { success: true, data };
+        return { success: true, data: resData };
       } else {
-        setError(data.message || 'Signup failed');
-        toast.error(data.message || 'Signup failed');
+        setError(resData.message || 'Signup failed');
+        toast.error(resData.message || 'Signup failed');
         setLoading(false);
-        return { success: false, error: data.message };
+        return { success: false, error: resData.message };
       }
     } catch (err) {
       const errorMsg =
