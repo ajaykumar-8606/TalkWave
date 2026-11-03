@@ -2,6 +2,12 @@
 
 A modern, responsive, real-time messaging web application built with the **MERN** stack (**MongoDB**, **Express**, **React 19**, **Node.js**) powered by **Socket.io** for instantaneous bi-directional communication.
 
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20Preview-brightgreen?style=for-the-badge&logo=render&logoColor=white)](https://chat-application-p7j6.onrender.com)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/ajaykumar-8606/Chat_application)
+
+> 🚀 **Live Application:** [https://chat-application-p7j6.onrender.com](https://chat-application-p7j6.onrender.com)  
+> ⚡ **Backend API Server:** [https://chat-application-backend-eafa.onrender.com](https://chat-application-backend-eafa.onrender.com)
+
 ---
 
 ## ✨ Features
@@ -102,8 +108,8 @@ PulseChat/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/ajaykumar-8606/PulseChat.git
-cd PulseChat
+git clone https://github.com/ajaykumar-8606/Chat_application.git
+cd Chat_application
 ```
 
 ---
