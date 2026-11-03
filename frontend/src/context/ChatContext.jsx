@@ -83,9 +83,9 @@ export const ChatProvider = ({ children }) => {
   useEffect(() => {
     const total = Object.values(unreadCounts).reduce((sum, count) => sum + count, 0);
     if (total > 0) {
-      document.title = `(${total}) PulseChat • Real-time Messenger`;
+      document.title = `(${total}) TalkWave • Real-time Messenger`;
     } else {
-      document.title = 'PulseChat • Real-time Messenger';
+      document.title = 'TalkWave • Real-time Messenger';
     }
   }, [unreadCounts]);
 

@@ -4,6 +4,7 @@ import { useChat } from '../src/context/ChatContext';
 import { useSocket } from '../src/context/SocketContext';
 import UserAvatar from './UserAvatar';
 import Message from './Message';
+import { TalkWaveIcon } from './TalkWaveLogo';
 import {
   IoSend,
   IoArrowBack,
@@ -205,15 +206,15 @@ const MessageContainer = () => {
     return (
       <div className="flex flex-col items-center justify-center h-full w-full p-6 text-center select-none bg-[#fafbfc]">
         <div className="max-w-sm flex flex-col items-center">
-          <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-[#fca639] via-[#f47858] to-[#ea5575] flex items-center justify-center text-white mb-4 shadow-lg shadow-orange-500/25">
-            <IoChatbubblesOutline className="w-8 h-8" />
-          </div>
+          <TalkWaveIcon className="w-16 h-16 mb-4 shadow-xl shadow-orange-500/30" />
 
-          <h2 className="text-xl font-bold text-[#1e293b] mb-1.5 tracking-tight">
-            Your Conversations
+          <h2 className="text-xl sm:text-2xl font-extrabold text-[#1e293b] mb-1.5 tracking-tight flex items-center gap-1.5">
+            <span>Welcome to</span>
+            <span>Talk</span>
+            <span className="bg-gradient-to-r from-[#f47858] to-[#ea5575] bg-clip-text text-transparent">Wave</span>
           </h2>
 
-          <p className="text-xs text-[#64748b] leading-relaxed mb-6">
+          <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed mb-6">
             Select a contact from the sidebar to start a real-time conversation.
           </p>
 

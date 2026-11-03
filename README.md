@@ -1,6 +1,6 @@
-# 💬 PulseChat - Full-Stack Real-Time Chat Application
+# 🌊 TalkWave - Full-Stack Real-Time Messaging Application
 
-A modern, responsive, real-time messaging web application built with the **MERN** stack (**MongoDB**, **Express**, **React 19**, **Node.js**) powered by **Socket.io** for instantaneous bi-directional communication.
+A modern, fluid, real-time messaging web application built with the **MERN** stack (**MongoDB**, **Express**, **React 19**, **Node.js**) powered by **Socket.io** for instantaneous bi-directional communication.
 
 <a href="https://chat-application-p7j6.onrender.com" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Demo-Live%20Preview-brightgreen?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo" /></a>
 <a href="https://github.com/ajaykumar-8606/Chat_application" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github" alt="GitHub Repo" /></a>
@@ -47,7 +47,7 @@ A modern, responsive, real-time messaging web application built with the **MERN*
 ## 📁 Project Structure
 
 ```text
-PulseChat/
+TalkWave/
 ├── backend/
 │   ├── config/
 │   │   └── database.js          # MongoDB connection handler

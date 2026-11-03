@@ -7,6 +7,7 @@ import {
   IoEyeOutline,
   IoEyeOffOutline,
 } from 'react-icons/io5';
+import TalkWaveLogo from './TalkWaveLogo';
 
 const Login = ({ onSwitchToSignup }) => {
   const { login, loading, error, success, setError } = useAuth();
@@ -34,7 +35,7 @@ const Login = ({ onSwitchToSignup }) => {
   const handleForgotPassword = (e) => {
     e.preventDefault();
     toast(
-      'To test or explore PulseChat, you can register a new account in seconds or use demo credentials.',
+      'To test or explore TalkWave, you can register a new account in seconds or use demo credentials.',
       {
         icon: '🔑',
         duration: 4000,
@@ -111,11 +112,17 @@ const Login = ({ onSwitchToSignup }) => {
       </div>
 
       {/* Main Login Card */}
-      <div className="relative z-10 w-full max-w-[340px] sm:max-w-[360px] bg-white rounded-[32px] px-7 sm:px-8 pt-10 sm:pt-12 pb-8 sm:pb-9 shadow-[0_25px_60px_-15px_rgba(5,20,80,0.5)] transition-all">
-        {/* Title */}
-        <h1 className="text-2xl sm:text-[26px] font-bold text-[#424d5e] text-center mb-7 tracking-tight">
-          Login
-        </h1>
+      <div className="relative z-10 w-full max-w-[340px] sm:max-w-[360px] bg-white rounded-[32px] px-7 sm:px-8 pt-9 sm:pt-11 pb-8 sm:pb-9 shadow-[0_25px_60px_-15px_rgba(5,20,80,0.5)] transition-all">
+        {/* Brand Logo & Title */}
+        <div className="flex flex-col items-center mb-6">
+          <TalkWaveLogo size="md" className="mb-2" />
+          <h1 className="text-2xl sm:text-[24px] font-bold text-[#424d5e] tracking-tight mt-1">
+            Welcome Back
+          </h1>
+          <p className="text-xs text-[#8a95a5] mt-0.5">
+            Sign in to start messaging on TalkWave
+          </p>
+        </div>
 
         {/* Feedback Alerts */}
         {error && (

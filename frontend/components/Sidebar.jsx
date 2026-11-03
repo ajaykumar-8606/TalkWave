@@ -4,6 +4,7 @@ import { useChat } from '../src/context/ChatContext';
 import { useSocket } from '../src/context/SocketContext';
 import UserAvatar from './UserAvatar';
 import ProfileModal from './ProfileModal';
+import { TalkWaveIcon } from './TalkWaveLogo';
 import {
   IoSearchOutline,
   IoCloseCircle,
@@ -100,15 +101,12 @@ const Sidebar = () => {
       {/* 1. Top Header & Branding */}
       <div className="flex-shrink-0 p-3.5 sm:p-4 border-b border-slate-200/80 flex items-center justify-between bg-white/90">
         <div className="flex items-center gap-3">
-          <div className="relative group">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#fca639] via-[#f47858] to-[#ea5575] flex items-center justify-center shadow-md shadow-orange-500/25">
-              <IoChatbubblesOutline className="w-5 h-5 text-white" />
-            </div>
-          </div>
+          <TalkWaveIcon className="w-10 h-10 shrink-0 shadow-md shadow-orange-500/25" />
           <div>
             <div className="flex items-center gap-1.5">
-              <h2 className="font-extrabold text-base sm:text-lg tracking-tight text-[#1e293b] flex items-center gap-1">
-                Pulse<span className="text-[#3b66de]">Chat</span>
+              <h2 className="font-extrabold text-base sm:text-lg tracking-tight text-[#1e293b] flex items-center leading-none">
+                <span>Talk</span>
+                <span className="bg-gradient-to-r from-[#f47858] to-[#ea5575] bg-clip-text text-transparent">Wave</span>
               </h2>
               <IoSparkles className="w-3.5 h-3.5 text-amber-500" />
             </div>

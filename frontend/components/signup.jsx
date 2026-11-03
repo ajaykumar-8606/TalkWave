@@ -11,6 +11,7 @@ import {
   IoChevronDown,
   IoFlashOutline,
 } from 'react-icons/io5';
+import TalkWaveLogo from './TalkWaveLogo';
 
 const Signup = ({ onSwitchToLogin }) => {
   const {
@@ -193,27 +194,14 @@ const Signup = ({ onSwitchToLogin }) => {
       {/* ================= Enhanced Floating Card Container ================= */}
       <div className="relative z-10 w-full max-w-[370px] sm:max-w-[400px] my-auto">
         <div className="w-full bg-white/98 backdrop-blur-2xl rounded-[34px] px-8 sm:px-9 pt-8 sm:pt-10 pb-7 sm:pb-8 shadow-[0_20px_50px_-10px_rgba(7,25,90,0.38),0_0_0_1px_rgba(255,255,255,0.8)_inset,0_30px_70px_-15px_rgba(5,20,80,0.45)] transition-all">
-          {/* Subtle PulseChat Brand Header Pill */}
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100/90 border border-slate-200/80 text-[11px] font-semibold text-slate-600 shadow-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-slate-800">
-                Pulse<span className="text-blue-600">Chat</span>
-              </span>
-              <span className="text-slate-300">•</span>
-              <span className="text-[10px] text-slate-500 font-normal">
-                Register
-              </span>
-            </div>
-          </div>
-
-          {/* Heading */}
-          <div className="text-center mb-5">
-            <h1 className="text-2xl sm:text-[26px] font-extrabold text-[#2e384d] tracking-tight">
+          {/* TalkWave Brand Logo & Title */}
+          <div className="flex flex-col items-center mb-5">
+            <TalkWaveLogo size="md" className="mb-2" />
+            <h1 className="text-2xl sm:text-[26px] font-extrabold text-[#2e384d] tracking-tight mt-1">
               Create Account
             </h1>
             <p className="text-xs text-[#8a95a5] mt-1 font-normal">
-              Join PulseChat for real-time instant messaging
+              Join TalkWave for real-time instant messaging
             </p>
           </div>
 
